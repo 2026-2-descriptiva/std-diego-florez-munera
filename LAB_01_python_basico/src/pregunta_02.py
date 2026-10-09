@@ -8,5 +8,8 @@ def pregunta_02():
 
         [("A", 8), ("B", 7), ("C", 5), ...]
     """
+    df = pd.read_csv("data/data.csv.gz", sep="\t", header=None)
+    counts = df[0].value_counts().sort_index()
+    return list(counts.items())
 
-    raise NotImplementedError
+      
