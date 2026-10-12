@@ -1,3 +1,14 @@
+import pandas as pd
+from pathlib import Path
+
+# Rutas
+DIR_DATOS = Path(__file__).resolve().parent.parent / "data"
+ARCH_DATOS = DIR_DATOS / "tbl0.tsv"
+
+# Existencia de dicha ruta
+assert ARCH_DATOS.exists()
+
+
 def pregunta_03():
     """
     Usando `data/tbl0.tsv`, cuente cuántos registros hay para cada categoría
@@ -12,5 +23,8 @@ def pregunta_03():
         C     5
         ...
     """
-
-    raise NotImplementedError
+    df = pd.read_csv(ARCH_DATOS, sep= "\t")
+    colc1 = df.groupby("c1").size()
+    return colc1
+    
+print(pregunta_03())

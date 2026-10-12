@@ -1,3 +1,15 @@
+import pandas as pd
+from pathlib import Path
+
+# Rutas
+DIR_DATOS = Path(__file__).resolve().parent.parent / "data"
+ARCH_DATOS = DIR_DATOS / "tbl0.tsv"
+
+# Existencia de dicha ruta
+assert ARCH_DATOS.exists()
+
+
+
 def pregunta_08():
     """
     Retorne la tabla `data/tbl0.tsv` completa con una columna adicional
@@ -11,5 +23,9 @@ def pregunta_08():
         2    2  B   5  1998-05-02     7
         ...
     """
+    
+    df = pd.read_csv(ARCH_DATOS, sep= "\t")
+    df["suma"] = df["c0"] + df["c2"]
+    return(df)
 
-    raise NotImplementedError
+print(pregunta_08())

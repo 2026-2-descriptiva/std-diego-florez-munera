@@ -1,3 +1,16 @@
+import pandas as pd
+from pathlib import Path
+
+# Rutas
+DIR_DATOS = Path(__file__).resolve().parent.parent / "data"
+ARCH_DATOS_1 = DIR_DATOS / "tbl0.tsv"
+ARCH_DATOS_2 = DIR_DATOS / "tbl2.tsv"
+
+# Existencia de dicha ruta
+assert ARCH_DATOS_1.exists()
+assert ARCH_DATOS_2.exists()
+
+
 def pregunta_13():
     """
     Combine las tablas `data/tbl0.tsv` y `data/tbl2.tsv` usando la columna
@@ -14,5 +27,11 @@ def pregunta_13():
         C     81
         ...
     """
+    
+    df1 = pd.read_csv(ARCH_DATOS_1, sep= "\t")
+    df2 = pd.read_csv(ARCH_DATOS_2, sep= "\t")
+    df = pd.merge(df1, df2, left_on="c0", right_on="c0", how="inner")
+    grupos = (df.groupby("c1")["c5b"].sum())
+    return grupos
 
-    raise NotImplementedError
+print(pregunta_13())

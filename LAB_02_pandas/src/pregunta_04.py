@@ -1,3 +1,15 @@
+import pandas as pd
+from pathlib import Path
+
+# Rutas
+DIR_DATOS = Path(__file__).resolve().parent.parent / "data"
+ARCH_DATOS = DIR_DATOS / "tbl0.tsv"
+
+# Existencia de dicha ruta
+assert ARCH_DATOS.exists()
+
+
+
 def pregunta_04():
     """
     Usando `data/tbl0.tsv`, calcule el promedio de la columna `c2` para cada
@@ -12,5 +24,15 @@ def pregunta_04():
         C    5.4000
         ...
     """
+    df = pd.read_csv(ARCH_DATOS, sep= "\t")
+    grupos = df.groupby("c1")["c2"].mean()
+    return(grupos)
 
-    raise NotImplementedError
+print(pregunta_04())
+
+
+
+
+
+
+    

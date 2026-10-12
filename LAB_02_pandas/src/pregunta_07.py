@@ -1,3 +1,15 @@
+import pandas as pd
+from pathlib import Path
+
+# Rutas
+DIR_DATOS = Path(__file__).resolve().parent.parent / "data"
+ARCH_DATOS = DIR_DATOS / "tbl0.tsv"
+
+# Existencia de dicha ruta
+assert ARCH_DATOS.exists()
+
+
+
 def pregunta_07():
     """
     Usando `data/tbl0.tsv`, sume los valores de la columna `c2` para cada
@@ -12,5 +24,9 @@ def pregunta_07():
         C    27
         ...
     """
+    
+    df = pd.read_csv(ARCH_DATOS, sep= "\t")
+    grupos = df.groupby("c1")["c2"].sum()
+    return grupos
 
-    raise NotImplementedError
+print(pregunta_07())

@@ -1,3 +1,14 @@
+import pandas as pd
+from pathlib import Path
+
+# Rutas
+DIR_DATOS = Path(__file__).resolve().parent.parent / "data"
+ARCH_DATOS = DIR_DATOS / "tbl1.tsv"
+
+# Existencia de dicha ruta
+assert ARCH_DATOS.exists()
+
+
 def pregunta_11():
     """
     En `data/tbl1.tsv`, cada valor de la columna `c0` aparece en varias
@@ -14,5 +25,8 @@ def pregunta_11():
         2    2  a,c,e,f
         ...
     """
+    df = pd.read_csv(ARCH_DATOS, sep= "\t")
+    grupos = df.groupby("c0")["c4"].agg(lambda x: ",".join(sorted(x)))
+    return grupos.reset_index()
 
-    raise NotImplementedError
+print(pregunta_11())

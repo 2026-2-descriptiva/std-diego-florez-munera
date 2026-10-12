@@ -1,3 +1,14 @@
+import pandas as pd
+from pathlib import Path
+
+# Rutas
+DIR_DATOS = Path(__file__).resolve().parent.parent / "data"
+ARCH_DATOS = DIR_DATOS / "tbl0.tsv"
+
+# Existencia de dicha ruta
+assert ARCH_DATOS.exists()
+
+
 def pregunta_05():
     """
     Usando `data/tbl0.tsv`, encuentre el valor máximo de la columna `c2` para
@@ -12,5 +23,11 @@ def pregunta_05():
         C    9
         ...
     """
+    
+    df = pd.read_csv(ARCH_DATOS, sep= "\t")
+    grupos = df.groupby("c1")["c2"].max()
+    return(grupos)
 
-    raise NotImplementedError
+print(pregunta_05())
+
+

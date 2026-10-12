@@ -1,3 +1,14 @@
+import pandas as pd
+from pathlib import Path
+
+# Rutas
+DIR_DATOS = Path(__file__).resolve().parent.parent / "data"
+ARCH_DATOS = DIR_DATOS / "tbl0.tsv"
+
+# Existencia de dicha ruta
+assert ARCH_DATOS.exists()
+
+
 def pregunta_10():
     """
     Usando `data/tbl0.tsv`, construya para cada categoría de la columna `c1`
@@ -14,5 +25,11 @@ def pregunta_10():
         C           0:5:6:7:9
         ...
     """
+    
+    df = pd.read_csv(ARCH_DATOS, sep= "\t")
+    grupos = df.groupby("c1")["c2"].apply(lambda x: ":".join(map(str, sorted(x)))).to_frame()
+    return grupos 
 
-    raise NotImplementedError
+print(pregunta_10())
+
+
