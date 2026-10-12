@@ -1,3 +1,15 @@
+import pandas as pd
+from pathlib import Path
+
+
+# Rutas
+DIR_DATOS = Path(__file__).resolve().parent.parent / 'data'
+ARCH_DATOS = DIR_DATOS / 'data.csv.gz'
+
+# Existencia de dicha ruta
+assert ARCH_DATOS.exists()
+
+
 def pregunta_08():
     """
     Repita la pregunta 7, pero ahora cada lista de letras debe contener cada
@@ -8,5 +20,8 @@ def pregunta_08():
 
         [(0, ["C"]), (1, ["B", "E"]), (2, ["A", "E"]), ...]
     """
+    df = pd.read_csv(ARCH_DATOS, sep="\t", header=None)
+    grupos = df.groupby(1)[0].agg(lambda x: sorted(set(x)))
+    return list(grupos.sort_index().items())
 
-    raise NotImplementedError
+print(pregunta_08())

@@ -1,3 +1,15 @@
+import pandas as pd
+from pathlib import Path
+
+
+# Rutas
+DIR_DATOS = Path(__file__).resolve().parent.parent / 'data'
+ARCH_DATOS = DIR_DATOS / 'data.csv.gz'
+
+# Existencia de dicha ruta
+assert ARCH_DATOS.exists()
+
+
 def pregunta_11():
     """
     La cuarta columna (`codes`) contiene letras minúsculas separadas por
@@ -9,5 +21,11 @@ def pregunta_11():
 
         {"a": 122, "b": 49, "c": 91, ...}
     """
+    df = pd.read_csv(ARCH_DATOS, sep="\t", header=None)
+    df[3] = df[3].str.split(",")
+    df_exploded = df.explode(3)
+    suma_por_letra = df_exploded.groupby(3)[1].sum().sort_index()
+    return dict(suma_por_letra)
+    
 
-    raise NotImplementedError
+print(pregunta_11())

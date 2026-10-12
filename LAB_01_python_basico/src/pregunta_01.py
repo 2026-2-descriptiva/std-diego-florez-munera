@@ -1,4 +1,14 @@
 import pandas as pd
+from pathlib import Path
+
+
+# Rutas
+DIR_DATOS = Path(__file__).resolve().parent.parent / 'data'
+ARCH_DATOS = DIR_DATOS / 'data.csv.gz'
+
+# Existencia de dicha ruta
+assert ARCH_DATOS.exists()
+
 
 def pregunta_01():
     """
@@ -9,6 +19,9 @@ def pregunta_01():
 
         214
     """
+    data = pd.read_csv(ARCH_DATOS, sep="\t", header=None)
+    SumaDeCol1 = data[1].sum()                        
 
-    df = pd.read_csv("data/data.csv.gz", sep="\t", header=None)
-    return print(int(df[1].sum()))
+    return int(SumaDeCol1)
+
+print(pregunta_01())
