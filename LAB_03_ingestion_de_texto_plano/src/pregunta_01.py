@@ -54,14 +54,17 @@ def pregunta_01():
     )
     
     df["cluster"] = df["cluster"].astype(int)
+    
     df["cantidad_de_palabras_clave"] = df[
         "cantidad_de_palabras_clave"
     ].astype(int)
+    
     df["porcentaje_de_palabras_clave"] = (
         df["porcentaje_de_palabras_clave"].str.replace(",", ".").astype(float)
     )
 
-    # 5. Limpieza vectorizada del texto de palabras clave
+
+    # 5. Limpieza del texto de palabras clave
     df["principales_palabras_clave"] = (
         df["principales_palabras_clave"]
         .str.replace(
